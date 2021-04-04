@@ -9,6 +9,8 @@ import AppRouter from "./routers/AppRouter";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 import "react-dates/lib/css/_datepicker.css";
+//Importing Firebase connction
+//import "./firebase/firebase";
 
 // Creating Redux Store
 const store = configureStore();
