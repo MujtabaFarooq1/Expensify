@@ -8,6 +8,7 @@ import {
   setExpenses,
   startSetExpenses,
   startRemoveExpense,
+  startEditExpense,
 } from "../../actions/expenses";
 
 import expenses from "../fixtures/expenses";
@@ -154,6 +155,30 @@ test("should remove expense from database", (done) => {
     })
     .then((snapshot) => {
       expect(snapshot.val()).toBeFalsy();
+      done();
+    });
+});
+
+test("should  edit expense from database", (done) => {
+  // jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+  const store = createMockStore({});
+  const id = expenses[0].id;
+  const updates = {
+    amount: 12345,
+  };
+  store
+    .dispatch(startEditExpense(id, updates))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "EDIT_EXPENSE",
+        id,
+        updates,
+      });
+      return database.ref(`expenses/${id}`).once("value");
+    })
+    .then((snapshot) => {
+      expect(snapshot.val().amount).toBe(updates.amount);
       done();
     });
 });
