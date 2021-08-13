@@ -60,3 +60,16 @@ test("Don't Edit expenses with invalid Id", () => {
   const state = expensesReducer(expenses, action);
   expect(state).toEqual(expenses);
 });
+
+test("should set expenses to state", () => {
+  const newExpenseList = [
+    { id: 0, description: "Gum Edited", note: "", amount: 287, createdAt: 0 },
+    { id: 1, description: "sdfsdf", amount: 34 },
+  ];
+  const action = {
+    type: "SET_EXPENSES",
+    expenses: newExpenseList,
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual(newExpenseList);
+});

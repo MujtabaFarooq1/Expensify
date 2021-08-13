@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 // Component Imports
 import AppRouter from "./routers/AppRouter";
+import { startSetExpenses } from "./actions/expenses";
 // CSS File Imports
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
@@ -22,7 +23,11 @@ const jsx = (
 );
 
 // Rendering the app
-ReactDOM.render(jsx, document.getElementById("app"));
+ReactDOM.render(<p>Loading ... </p>, document.getElementById("app"));
+
+store.dispatch(startSetExpenses()).then(() => {
+  ReactDOM.render(jsx, document.getElementById("app"));
+});
 
 // store.subscribe(() => {
 //   const state = store.getState();
