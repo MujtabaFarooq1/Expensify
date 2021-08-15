@@ -4,14 +4,15 @@ import { Provider } from "react-redux";
 //Redux Store
 import configureStore from "./store/configureStore";
 // Component Imports
-import AppRouter from "./routers/AppRouter";
+import AppRouter, { history } from "./routers/AppRouter";
 import { startSetExpenses } from "./actions/expenses";
+import { login, logout } from "./actions/auth";
 // CSS File Imports
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 import "react-dates/lib/css/_datepicker.css";
 //Importing Firebase connction
-//import "./firebase/firebase";
+import { firebase } from "./firebase/firebase";
 
 // Creating Redux Store
 const store = configureStore();
@@ -25,8 +26,29 @@ const jsx = (
 // Rendering the app
 ReactDOM.render(<p>Loading ... </p>, document.getElementById("app"));
 
-store.dispatch(startSetExpenses()).then(() => {
-  ReactDOM.render(jsx, document.getElementById("app"));
+//
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById("app"));
+    hasRendered = true;
+  }
+};
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+    store.dispatch(startSetExpenses()).then(() => {
+      renderApp();
+      if (history.location.pathname === "/") {
+        history.push("/dashboard");
+      }
+    });
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push("/");
+  }
 });
 
 // store.subscribe(() => {
