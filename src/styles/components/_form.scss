@@ -1,0 +1,19 @@
+.form {
+  //
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    margin-bottom: $m-size;
+  }
+
+  &__error {
+    margin: 0 0 $m-size 0;
+    font-style: italic;
+    color: crimson;
+    font-size: $font-size-large;
+    padding: $s-size;
+    outline: 1px solid crimson;
+    text-transform: capitalize;
+  }
+}

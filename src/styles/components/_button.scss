@@ -1,0 +1,31 @@
+.btn {
+  font-size: $font-size-large;
+  font-size: $m-size;
+  padding: $s-size;
+  font-weight: 300;
+  text-transform: capitalize;
+  color: #fff;
+  border-radius: 0.3rem;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+
+  &--primary {
+    background-color: $primary-blue;
+  }
+
+  &--secondary {
+    background-color: $medium-grey;
+  }
+
+  &--outlined {
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-color: #fff;
+    }
+  }
+}

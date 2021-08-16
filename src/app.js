@@ -14,6 +14,8 @@ import "react-dates/lib/css/_datepicker.css";
 //Importing Firebase connction
 import { firebase } from "./firebase/firebase";
 
+import LoadingPage from "./components/LoadingPage";
+
 // Creating Redux Store
 const store = configureStore();
 
@@ -23,9 +25,6 @@ const jsx = (
   </Provider>
 );
 
-// Rendering the app
-ReactDOM.render(<p>Loading ... </p>, document.getElementById("app"));
-
 //
 let hasRendered = false;
 const renderApp = () => {
@@ -34,6 +33,9 @@ const renderApp = () => {
     hasRendered = true;
   }
 };
+
+// Rendering the app
+ReactDOM.render(<LoadingPage />, document.getElementById("app"));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
